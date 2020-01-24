@@ -4,10 +4,10 @@ namespace AudioCommune2.Models
     public class message
     {
         public int Id { get; set; }
-        public string text { get; set; }
+        public string Text { get; set; }
 
         //external
-        public int userID { get; set; }
-        public int serverID { get; set; }
+        public int UserID { get; set; }
+        public int ServerID { get; set; }
     }
 }
