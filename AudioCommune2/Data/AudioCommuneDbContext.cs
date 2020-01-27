@@ -17,22 +17,17 @@ namespace AudioCommune2.Data
 
         public DbSet<video>Videos { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlite("Data Source=CheeseMVC.db");
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<message>()
-                .HasKey(c => new { c.UserID, c.ServerID });
-
             modelBuilder.Entity<playlist>()
-               .HasKey(c => new { c.ServerID, c.UserID, c.VideoID });
+                .HasKey(c => new { c.UserID, c.ServerID });
 
             modelBuilder.Entity<UserServer>()
                .HasKey(c => new { c.UserID, c.ServerID });
         }
 
-        public AudioCommuneDbContext()
+        public AudioCommuneDbContext(DbContextOptions<AudioCommuneDbContext> options)
+            : base(options)
         {
         }
     }

@@ -1,6 +1,6 @@
-﻿@model AudioCommune2.Models.User
+﻿@model AudioCommune2.ViewModels.LoginIserViewModel
 
-<form asp-controller="Cheese" asp-action="Add" method="post">
+<form asp-controller="signin" asp-action="Index" method="post">
     <div class="form-group">
         <label asp-for="Username"></label>
         <input class="form-control" asp-for="Username" />
@@ -9,7 +9,7 @@
 
     <div class="form-group">
         <label asp-for="Password"></label>
-        <input class="form-control" asp-for="Password" />
+        <input type="password" class="form-control" asp-for="Password" />
         <span asp-validation-for="Password"></span>
     </div>
 
