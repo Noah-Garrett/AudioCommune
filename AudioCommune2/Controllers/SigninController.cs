@@ -36,11 +36,19 @@ namespace AudioCommune2.Controllers
 
             if (ModelState.IsValid)
             {
-                return Redirect("/");
+                try
+                {
+                    var user = context.Users
+                        .Single(user => user.Username == vm.Username & user.Password == vm.Password);
+                    return Redirect("/");
+                }
+                catch (InvalidOperationException)
+                {
+                    return View(vm);
+                }
             }
             return View(vm);
         }
-
         public IActionResult Signup()
         {
             AddUserViewModel vm = new AddUserViewModel();

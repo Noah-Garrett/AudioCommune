@@ -6,22 +6,60 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using AudioCommune2.Models;
+using AudioCommune2.ViewModels;
+using AudioCommune2.Data;
 
 namespace AudioCommune2.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private AudioCommuneDbContext context;
 
-        public HomeController(ILogger<HomeController> logger)
+
+        public HomeController(ILogger<HomeController> logger, AudioCommuneDbContext dbcontext)
         {
             _logger = logger;
+            context = dbcontext;
         }
+
+
+        //public HomeController(ILogger<HomeController> logger)
+        //{
+        //    _logger = logger;
+        //}
+
+
+
 
         public IActionResult Index()
         {
-            return View();
+            AddVideoViewModel vm = new AddVideoViewModel();
+            return View(vm);
         }
+
+        [HttpPost]
+        public IActionResult Index(AddVideoViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+
+                
+                string videoIDextract = vm.Url.Split('=').Last();
+                video newvideo = new video
+                {
+                    
+                    Url = videoIDextract
+
+                };
+                context.Videos.Add(newvideo);
+                context.SaveChanges();
+
+                return Redirect("/");
+            }
+            return View(vm);
+        }
+
 
         public IActionResult Privacy()
         {
