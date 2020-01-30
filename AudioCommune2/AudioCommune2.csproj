@@ -29,4 +29,7 @@
 <PrivateAssets>all</PrivateAssets>
 </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Controllers\NextVideoController.cs" />
+  </ItemGroup>
 </Project>
