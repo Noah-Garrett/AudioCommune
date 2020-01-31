@@ -35,6 +35,8 @@ namespace AudioCommune2.Controllers
         public IActionResult Index()
         {
             AddVideoViewModel vm = new AddVideoViewModel();
+            IList<Message> allMessages = context.Messages.ToList();
+            ViewBag.allMessages = allMessages;
             return View(vm);
         }
 
@@ -43,19 +45,42 @@ namespace AudioCommune2.Controllers
         {
             if (ModelState.IsValid)
             {
-
-                
-                string videoIDextract = vm.Url.Split('=').Last();
-                video newvideo = new video
+                if (vm.Url.Contains("="))
                 {
-                    
-                    Url = videoIDextract
 
-                };
-                context.Videos.Add(newvideo);
-                context.SaveChanges();
+                    string videoIDextract = vm.Url.Split('=').Last();
+                    video newvideo = new video
+                    {
 
-                return Redirect("/");
+                        Url = videoIDextract
+
+                    };
+                    context.Videos.Add(newvideo);
+                    context.SaveChanges();
+
+                    return Redirect("/");
+                }
+                else
+                {
+
+                    string source = vm.Url;
+                    string split = "https://youtu.be/";
+
+
+                    string videoIDextract = source.Substring(source.IndexOf(split) + split.Length);
+
+                    video newvideo = new video
+                    {
+
+                        Url = videoIDextract
+
+                    };
+                    context.Videos.Add(newvideo);
+                    context.SaveChanges();
+
+                    return Redirect("/");
+
+                }
             }
             return View(vm);
         }

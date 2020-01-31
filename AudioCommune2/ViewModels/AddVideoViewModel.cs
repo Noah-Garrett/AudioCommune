@@ -6,7 +6,7 @@ namespace AudioCommune2.ViewModels
 {
     public class AddVideoViewModel
     {
-        [Required(ErrorMessage = "You must provide a Username")]
+        [Required(ErrorMessage = "You must provide a URL")]
         public string Url { get; set; }
         //public int Id { get; set; }
 

@@ -41,7 +41,12 @@ namespace AudioCommune2.Controllers
             var videos = context.Videos.ToList();
             return videos;
         }
-      
+
+        public List<Message> GetAllMessages()
+        {
+            var allMessages = context.Messages.ToList();
+            return allMessages;
+        }
     }
 
 }

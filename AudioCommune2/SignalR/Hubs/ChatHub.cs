@@ -30,7 +30,7 @@ namespace SignalRChat.Hubs
                 //fething great. db doesnt want to drop. at some point update message userID to a string,
                 //set userid to user.
 
-                UserID = 1,
+                UserID = user,
                 Text = message,
                 ServerID = 1,
 

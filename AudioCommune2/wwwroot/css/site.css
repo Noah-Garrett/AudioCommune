@@ -74,5 +74,18 @@ body {
     height: 300px;
     width: 500px;
     overflow: scroll;
-    background-color:grey;
+    word-wrap: break-word;
+    background-color: grey;
+}
+
+#messagesList {
+    display: flex;
+    flex-direction: column-reverse;
+    background-color: lightgray;
+    margin: auto;
+}
+
+.newMessage {
+   margin-top: 10px;
+   margin-bottom: 10px;
 }
