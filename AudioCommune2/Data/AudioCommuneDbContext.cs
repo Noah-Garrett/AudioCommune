@@ -5,9 +5,9 @@ namespace AudioCommune2.Data
 {
     public class AudioCommuneDbContext : DbContext
     {
-        public DbSet<message> Messages { get; set; }
+        public DbSet<Message> Messages { get; set; }
 
-        public DbSet<playlist>Playlists { get; set; }
+        public DbSet<Playlist>Playlists { get; set; }
 
         public DbSet<Server>Servers { get; set; }
 
@@ -19,7 +19,7 @@ namespace AudioCommune2.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<playlist>()
+            modelBuilder.Entity<Playlist>()
                 .HasKey(c => new { c.UserID, c.ServerID });
 
             modelBuilder.Entity<UserServer>()

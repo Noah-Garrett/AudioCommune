@@ -38,46 +38,39 @@
            loadPlaylist_video_ids();;
         }
 
-        var cued = false;
-        var done = false;
-        function onPlayerStateChange(event) {
-            switch (event.data) {
-                case (YT.PlayerState.PLAYING):
-                    console.log("video playing");
-                    break;
-                case (YT.PlayerState.ENDED):
-                    console.log("video stopped");
-                    cued = true;
-                    break;
-                case (YT.PlayerState.PAUSED):
-                    console.log("video paused");
-                    break;
-            }
-        }
-        function stopVideo() {
-            player.stopVideo();
-        }
+        //var cued = false;
+        //var done = false;
+        //function onPlayerStateChange(event) {
+        //    switch (event.data) {
+        //        case (YT.PlayerState.PLAYING):
+        //            console.log("video playing");
+        //            break;
+        //        case (YT.PlayerState.ENDED):
+        //            console.log("video stopped");
+        //            cued = true;
+        //            break;
+        //        case (YT.PlayerState.PAUSED):
+        //            console.log("video paused");
+        //            break;
+        //    }
+        //}
 
         function loadPlaylist_video_ids() {
             fetch('/NextVid/Vids')
-               .then(function (response) {
-                return response.json();
-            })
-            .then(function (data) {
-                console.log(data);
-            })
-            .catch(function (err) {
-                console.log("Something went wrong!", err);
-            });
+               .then(response => (response.json()))
+               .then((videoObjArr) => {
+               const newPlaylist = videoObjArr.map(vid => vid.url);
+
 
             player.loadPlaylist({
-                'playlist': ['9HPiBJBCOq8', 'q6EoRBvdVPQ', '8YWl7tDGUPA', 'SBeYzoQPbu8','EWF8Nfm-LLk','WFoC3TR5rzI'],
+                'playlist': newPlaylist,
                 'listType': 'playlist',
                 'index': 0,
                 'startSeconds': 0,
                 'suggestedQuality': 'small'
-            });
-        }
+            })});
+
+            }      
 
     </script>
     <form asp-controller="home" asp-action="Index" method="post">
@@ -98,7 +91,7 @@
         </div>
         <div class="row">
             <div class="col-2">Message</div>
-            <div class="col-4"><input type="text" id="messageInput" /></div>
+            <div class="col-4"><textarea style="resize:none" type="text" id="messageInput" /></textarea></div>
         </div>
         <div class="row">&nbsp;</div>
         <div class="row">
@@ -112,8 +105,8 @@
             <hr />
         </div>
     </div>
-    <div class="row">
-        <div class="col-6">
+    <div class="row" id="messageArea">
+        <div class="col-10">
             <ul id="messagesList"></ul>
         </div>
     </div>

@@ -1,7 +1,7 @@
 ﻿using System;
 namespace AudioCommune2.Models
 {
-    public class playlist
+    public class Playlist
     {
         public int Position { get; set; }
 
