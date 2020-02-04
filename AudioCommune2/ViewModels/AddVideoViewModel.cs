@@ -8,18 +8,10 @@ namespace AudioCommune2.ViewModels
     {
         [Required(ErrorMessage = "You must provide a URL")]
         public string Url { get; set; }
-        //public int Id { get; set; }
 
-        //public video NewUser()
-        //{
-        //    return new video
-        //    {
-        //        Id = 1,
-        //        Url=this.Url
-                
-        //    };
-        //}
+        public string Title { get; set; }
 
+        public string EyeD { get; set; }
 
         public AddVideoViewModel()
         {

@@ -22,26 +22,18 @@ namespace AudioCommune2.Controllers
         // GET: /<controller>/
         public  IActionResult Index()
         {
-            var videos = context.Videos.ToList();
-
-            //where server = current server
-           
-            //OK. so we need to do a few things here.
-            //1 - we need to get the length of videos (but will need to be playlists at some point).
-            //2 - we need to iterate that saved number.
-            //3 - we need to make sure number is not greater then len list, if so back to 1.
-            //4 - we need to get the video whos id matches a saved number.
-            //5 - return URL.
-
+            //var videos = context.Videos.ToList();
             return View();
         }
 
+        //this is to retrieve the list of videos on the server
         public List<video> Vids()
         {
             var videos = context.Videos.ToList();
             return videos;
         }
 
+        //idk why i put it in here, but this is where we retrieve the list of messages from server
         public List<Message> GetAllMessages()
         {
             var allMessages = context.Messages.ToList();

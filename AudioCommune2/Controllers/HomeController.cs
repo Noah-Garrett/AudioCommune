@@ -23,15 +23,7 @@ namespace AudioCommune2.Controllers
             context = dbcontext;
         }
 
-
-        //public HomeController(ILogger<HomeController> logger)
-        //{
-        //    _logger = logger;
-         //}
-        //testtest commitoverride
-
-
-
+        //main server page
         public IActionResult Index()
         {
             AddVideoViewModel vm = new AddVideoViewModel();
@@ -40,48 +32,26 @@ namespace AudioCommune2.Controllers
             return View(vm);
         }
 
+        //submit a video on server page
         [HttpPost]
         public IActionResult Index(AddVideoViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                if (vm.Url.Contains("="))
-                {
-
-                    string videoIDextract = vm.Url.Split('=').Last();
                     video newvideo = new video
                     {
 
-                        Url = videoIDextract
+                        Url = vm.EyeD,
+                        Title = vm.Title
 
                     };
                     context.Videos.Add(newvideo);
                     context.SaveChanges();
-
-                    return Redirect("/");
-                }
-                else
-                {
-
-                    string source = vm.Url;
-                    string split = "https://youtu.be/";
-
-
-                    string videoIDextract = source.Substring(source.IndexOf(split) + split.Length);
-
-                    video newvideo = new video
-                    {
-
-                        Url = videoIDextract
-
-                    };
-                    context.Videos.Add(newvideo);
-                    context.SaveChanges();
-
                     return Redirect("/");
 
-                }
             }
+            IList<Message> allMessages = context.Messages.ToList();
+            ViewBag.allMessages = allMessages;
             return View(vm);
         }
 

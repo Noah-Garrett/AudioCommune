@@ -1,15 +1,14 @@
 ﻿@model AudioCommune2.ViewModels.AddVideoViewModel
-
-
+<!-- all the code below is for the youtube video player. first part of code up top is directly from
+    their demo resource-->
 <!DOCTYPE html>
 <html>
 <body>
+    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
     <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
     <div id="player"></div>
 
-
     <script>// 2. This code loads the IFrame Player API code asynchronously.
-
         var tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
         var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -29,11 +28,9 @@
             });
         }
         // 4. The API will call this function when the video player is ready.
-
-        function onPlayerReady(event) {
+        function onPlayerReady() {
             loadPlaylist_video_ids();;
         }
-
         var cued = false;
         var done = false;
         function onPlayerStateChange(event) {
@@ -50,14 +47,12 @@
                     break;
             }
         }
-
+        //this function calls the list of videos from the controller, parses it into a list and boom - playlist.
         function loadPlaylist_video_ids() {
             fetch('/NextVid/Vids')
                 .then(response => (response.json()))
                 .then((videoObjArr) => {
                     const newPlaylist = videoObjArr.map(vid => vid.url);
-
-
                     player.loadPlaylist({
                         'playlist': newPlaylist,
                         'listType': 'playlist',
@@ -66,18 +61,81 @@
                         'suggestedQuality': 'small'
                     })
                 });
-
         }</script>
-    <form asp-controller="home" asp-action="Index" method="post">
+    <!--this part is where i take the user supplied input-->
+
+    <form id="form2" asp-controller="home" asp-action="Index" method="post">
         <div class="form-group">
-            
-            <input class="form-control" asp-for="Url" />
+            <input class="form-control" id="submittedURL" asp-for="Url" />
             <span asp-validation-for="Url"></span>
+            <input type="hidden" id="parseID" asp-for="EyeD" value="" />
+            <input type="hidden" id="videoName" asp-for="Title" value="" />
+            <input id="btnsubmit" type="submit" value="Submit Video" onclick="submitURL()" />
         </div>
-        <input type="submit" value="vidsubmit" />
+
+        <script>function submitURL() {
+
+                console.log('start');
+
+                const elem = document.getElementById('submittedURL');
+                const elemID = document.querySelector('#parseID');
+                const elemName = document.querySelector('#videoName');
+
+                let vidname;
+                let videoIDextract;
+                //code below is used to retrieve the video ID. that goes to both model and json below
+
+                if (elem.value.includes('=')) {
+                    videoIDextract = elem.value.split('=')[1];
+
+                    alert(videoIDextract);
+                }
+                else {
+                    var split = "https://youtu.be/";
+
+                    videoIDextract = elem.value.split(split)[1];
+
+                    //this is such a trash line i wanted to keep it
+                    //videoIDextract = source.Substring(source.IndexOf(split) + split.Length);
+
+                    alert(videoIDextract);
+                }
+
+                //the code below is used to retrieve the video's title.
+
+                const url = 'https://www.youtube.com/watch?v=' + videoIDextract;
+
+                $.getJSON('https://noembed.com/embed',
+                    { format: 'json', url: url }, function (data) {
+                        vidname = data.title;
+                        elemID.value = videoIDextract;
+                        elemName.value = vidname;
+
+                        console.log('inside getJSON', elemName.value);
+                        console.log('inside getJSON', elemID.value);
+                        console.log('inside getJSON', elemName);
+
+                        //so this line submits the form, and it seems to work. now i just
+                        //need to figure out how tf to pass this info in.
+
+                        document.getElementById("form2").submit();
+
+                        console.log('should have submitted form?')
+                        alert('end2')
+                    });
+                console.log('outside getJSON', vidname);
+                alert('end')
+            }</script>
     </form>
 
 
+    <div class="container">
+        div
+    </div>
+
+    <!-- this is the messaging portion of the server page. it uses singalR as the active message app
+        and saves each message as it is sent in ChatHub.
+        on page load it loads all messages from the server into the scrollable box-->
     <div class="container">
         <div class="row">&nbsp;</div>
         <div class="row">
@@ -86,7 +144,7 @@
         </div>
         <div class="row">
             <div class="col-2">Message</div>
-            <div class="col-4"><textarea style="resize:none" type="text" id="messageInput" ></textarea></div>
+            <div class="col-4"><textarea style="resize:none" type="text" id="messageInput"></textarea></div>
         </div>
         <div class="row">&nbsp;</div>
         <div class="row">
@@ -100,26 +158,23 @@
             <hr />
         </div>
     </div>
-    <script>
-        function GetAllMessage() {
+    <script>function GetAllMessage() {
             fetch('/NextVid/GetAllMessages')
                 .then(response => (response.json()))
                 .then((messageObjArr) => {
                     const allMessages = messageObjArr.map(messageUser => messageUser.user);
-                    const 
-    </script>
+                    const</script>
     <div class="row" id="messageArea">
         <div class="col-10">
             <ul id="messagesList">
                 @foreach (var message in ViewBag.allMessages)
                 {
-                <li>@message.UserID says '@message.Text'</li>
+                    <li>@message.UserID says '@message.Text'</li>
                 }
             </ul>
         </div>
     </div>
     <script src="~/js/signalr/dist/browser/signalr.js"></script>
     <script src="~/js/chat.js"></script>
-
 </body>
 </html>

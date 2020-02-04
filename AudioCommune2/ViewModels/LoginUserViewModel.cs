@@ -11,8 +11,6 @@ namespace AudioCommune2.ViewModels
         [Required(ErrorMessage = "you need a password")]
         public string Password { get; set; }
     
-
-
         public User NewUser()
         {
             return new User

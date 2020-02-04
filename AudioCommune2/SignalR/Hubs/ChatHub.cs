@@ -27,9 +27,6 @@ namespace SignalRChat.Hubs
                 //USERID WILL NEED TO BE AN INT ONCE WE HAVE A RELIABLE WAY TO USER CREATE/PERSIST
                 //AND HAVE A FUNCTIONING USER DEETS.
 
-                //fething great. db doesnt want to drop. at some point update message userID to a string,
-                //set userid to user.
-
                 UserID = user,
                 Text = message,
                 ServerID = 1,

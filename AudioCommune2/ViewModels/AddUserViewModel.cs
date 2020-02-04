@@ -14,9 +14,6 @@ namespace AudioCommune2.ViewModels
         [Required(ErrorMessage = "Confirm password")]
         public string ConfirmPassword { get; set; }
 
-
-
-
         public User NewUser()
         {
             return new User

@@ -107,6 +107,9 @@ namespace AudioCommune2.Migrations
                     b.Property<string>("Url")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Title")
+                    .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.ToTable("Videos");

@@ -20,13 +20,14 @@ namespace AudioCommune2.Controllers
             context = dbcontext;
         }
 
-
+        //login page
         public IActionResult Index()
         {
             LoginIserViewModel vm = new LoginIserViewModel();
             return View(vm);
         }
 
+        //login confirm page
         [HttpPost]
         public IActionResult Index(LoginIserViewModel vm)
         {
@@ -49,12 +50,16 @@ namespace AudioCommune2.Controllers
             }
             return View(vm);
         }
+
+        //sign up page
         public IActionResult Signup()
         {
             AddUserViewModel vm = new AddUserViewModel();
             return View(vm);
         }
 
+
+        //create a new account check n create
         [HttpPost]
         public IActionResult Signup(AddUserViewModel vm)
         {
