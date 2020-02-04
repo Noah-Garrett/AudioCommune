@@ -29,6 +29,10 @@ namespace AudioCommune2.Controllers
             AddVideoViewModel vm = new AddVideoViewModel();
             IList<Message> allMessages = context.Messages.ToList();
             ViewBag.allMessages = allMessages;
+
+
+            IList<video> allVideos = context.Videos.ToList();
+            ViewBag.allVideos = allVideos;
             return View(vm);
         }
 
@@ -52,7 +56,7 @@ namespace AudioCommune2.Controllers
             }
             IList<Message> allMessages = context.Messages.ToList();
             ViewBag.allMessages = allMessages;
-            return View(vm);
+            return Redirect("/");
         }
 
 

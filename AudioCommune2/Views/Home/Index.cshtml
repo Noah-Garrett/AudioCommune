@@ -121,14 +121,22 @@
                         document.getElementById("form2").submit();
 
                         //console.log('should have submitted form?')
-                        
+
                     });
             }</script>
     </form>
 
 
-    <div class="container">
-        div
+    <div>
+        <div>Playlist</div>
+        <div class="col-10">
+            <ul>
+                @foreach (var video in ViewBag.allVideos)
+                {
+                    <li>@video.Id ) '@video.Title'</li>
+                }
+            </ul>
+        </div>
     </div>
 
     <!-- this is the messaging portion of the server page. it uses singalR as the active message app
