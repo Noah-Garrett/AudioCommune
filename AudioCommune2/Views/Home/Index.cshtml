@@ -88,7 +88,7 @@
                 if (elem.value.includes('=')) {
                     videoIDextract = elem.value.split('=')[1];
 
-                    alert(videoIDextract);
+                    //alert(videoIDextract);
                 }
                 else {
                     var split = "https://youtu.be/";
@@ -98,7 +98,7 @@
                     //this is such a trash line i wanted to keep it
                     //videoIDextract = source.Substring(source.IndexOf(split) + split.Length);
 
-                    alert(videoIDextract);
+                    //alert(videoIDextract);
                 }
 
                 //the code below is used to retrieve the video's title.
@@ -111,20 +111,18 @@
                         elemID.value = videoIDextract;
                         elemName.value = vidname;
 
-                        console.log('inside getJSON', elemName.value);
-                        console.log('inside getJSON', elemID.value);
-                        console.log('inside getJSON', elemName);
+                        //console.log('inside getJSON', elemName.value);
+                        //console.log('inside getJSON', elemID.value);
+                        //console.log('inside getJSON', elemName);
 
                         //so this line submits the form, and it seems to work. now i just
                         //need to figure out how tf to pass this info in.
 
                         document.getElementById("form2").submit();
 
-                        console.log('should have submitted form?')
-                        alert('end2')
+                        //console.log('should have submitted form?')
+                        
                     });
-                console.log('outside getJSON', vidname);
-                alert('end')
             }</script>
     </form>
 
